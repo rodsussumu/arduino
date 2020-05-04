@@ -19,10 +19,10 @@ void setup() {
 }
 
 void loop() {
-  float umidade = dht.readHumidity();
-  float temperatura = dht.readTemperature();
-  float umidadeSolo = analogRead(Higrometro);
-  float luminosidade = analogRead(LDR);
+  int umidade = dht.readHumidity();
+  int temperatura = dht.readTemperature();
+  int umidadeSolo = analogRead(Higrometro);
+  int luminosidade = analogRead(LDR);
   
 
     Serial.print(umidade);
@@ -30,10 +30,14 @@ void loop() {
     Serial.print(umidadeSolo);
     Serial.print(luminosidade);
 
-    if(umidadeSolo > 511.5) {
-        digitalWrite(LED_VERDE, HIGH);    
+    if(umidadeSolo > 511.5 && luminosidade > 450) {
+        digitalWrite(LED_VERDE, HIGH);
+        digitalWrite(LED_VERMELHO, LOW);    
+        Serial.print("Irriga horta";)
     } else {
-         digitalWrite(LED_VERMELHO, LOW); 
+         digitalWrite(LED_VERMELHO, HIGH); 
+         digitalWrite(LED_VERDE, LOW);
+         Serial.print("Condiçoes invalidas, sem irrigação");
     }
 
 }
